@@ -57,6 +57,19 @@
     .nav-link:active {
       transform: translateY(0);
     }
+
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+      }
+
+      .header-actions {
+        width: 100%;
+        justify-content: center;
+      }
+    }
     .container {max-width:1400px; margin:40px auto; padding:0 20px;}
 
     /* ============================================================

@@ -54,6 +54,20 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
       border-color: rgba(255, 255, 255, 0.4);
     }
+
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+      }
+
+      .header-actions {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+    }
     .container {max-width:1400px; margin:40px auto; padding:0 20px;}
 
     /* Cards */
@@ -64,6 +78,7 @@
       border:1px solid rgba(10,29,65,0.08);
       box-shadow:0 8px 24px rgba(10,29,65,0.08);
       margin-bottom:30px;
+      width: 100%;
     }
     .incoming-card {border-top:5px solid #0A1D41;}
     .outgoing-card {border-top:5px solid #A8AD63;}

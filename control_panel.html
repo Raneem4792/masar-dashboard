@@ -102,6 +102,20 @@
       flex-wrap: wrap;
     }
 
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+      }
+
+      .header-actions {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+    }
+
     .btn-nav {
       border-radius: 14px;
       border: 1px solid rgba(255, 255, 255, 0.25);
@@ -154,6 +168,7 @@
       border: 1px solid rgba(10, 29, 65, 0.08);
       backdrop-filter: blur(10px);
       transition: all 0.3s ease;
+      width: 100%;
     }
 
     .card:hover {
