@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>نظام النقل بين المستشفيات - Network Transfer V2</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {margin:0; padding:0; box-sizing:border-box;}
+    body {
+      font-family: "Tajawal", sans-serif;
+      background: #F7F9FD;
+      color:#1A3A7A;
+      padding-bottom:50px;
+    }
+    header {
+      background: #0A1D41;
+      color:#FFFFFF;
+      letter-spacing: 0.5px;
+      padding:20px 30px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      box-shadow:0 4px 18px rgba(0,0,0,0.15);
+    }
+    .header-title {font-size:20px; font-weight:700;}
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .nav-link {
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 9px 18px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      text-decoration: none;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .nav-link:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+    .nav-link:active {
+      transform: translateY(0);
+    }
+    .container {max-width:1400px; margin:40px auto; padding:0 20px;}
+
+    /* ============================================================
+      بطاقات المستشفيات الرئيسية (Top Cards)
+    ============================================================ */
+    .hospital-grid {
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px,1fr));
+      gap:20px;
+      margin-bottom:30px;
+    }
+    .hospital-card {
+      background:linear-gradient(180deg, #ffffff, #f7f9fc);
+      border-radius:20px;
+      padding:20px;
+      border:1px solid rgba(195, 199, 115, 0.5);
+      box-shadow:0 6px 20px rgba(10, 29, 65, 0.08);
+      transition:all .25s ease;
+      cursor:pointer;
+      position:relative;
+      overflow:hidden;
+    }
+    .hospital-card:hover {
+      transform:translateY(-3px);
+      box-shadow:0 12px 28px rgba(10,29,65,0.15);
+      border-color:#8A8F40;
+    }
+    .hospital-card.selected {
+      border:2px solid #0A1D41;
+      box-shadow:0 0 0 4px rgba(10,29,65,0.15);
+    }
+    .hospital-name {font-size:20px; font-weight:700; margin-bottom:6px; color:#A8AD63;}
+    .hospital-meta {font-size:14px; color:#15294E; margin-bottom:10px;}
+    .capacity-bar {height:7px; width:100%; border-radius:999px; background:#e2e6f3; margin:10px 0;}
+    .capacity-fill {height:100%; border-radius:999px;}
+
+    .green {background:linear-gradient(90deg,#2ecc71,#27ae60);}
+    .yellow {background:linear-gradient(90deg,#f4d03f,#f1c40f);}
+    .red {background:linear-gradient(90deg,#e74c3c,#c0392b);}
+
+    .tag {
+      padding:4px 10px;
+      font-size:11px;
+      border-radius:999px;
+      font-weight:700;
+    }
+    .tag-open {background:rgba(46,204,113,.15); color:#27ae60;}
+    .tag-limited {background:rgba(241,196,15,.15); color:#f1c40f;}
+    .tag-closed {background:rgba(231,76,60,.15); color:#e74c3c;}
+
+    /* ============================================================
+      قسم المقارنة بين المستشفى الحالي والمستقبل
+    ============================================================ */
+    .compare-box {
+      background:linear-gradient(180deg, #ffffff, #f7f9fc);
+      padding:22px;
+      border-radius:20px;
+      border:1px solid rgba(195, 199, 115, 0.5);
+      box-shadow:0 6px 20px rgba(10, 29, 65, 0.08);
+      margin-bottom:30px;
+    }
+    .compare-title {font-size:18px; font-weight:700; margin-bottom:10px; color:#A8AD63;}
+    .compare-grid {
+      display:grid;
+      grid-template-columns:1fr 60px 1fr;
+      gap:10px;
+      margin-top:20px;
+    }
+    .compare-col {
+      background:#FFFFFF;
+      border-radius:14px;
+      padding:16px;
+      border:1px solid rgba(195, 199, 115, 0.5);
+    }
+    .compare-label {font-size:13px; color:#1A3A7A;}
+    .compare-value {font-size:20px; font-weight:700; margin-bottom:8px; color:#0A1D41;}
+    .compare-arrow {
+      font-size:32px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#0A1D41;
+    }
+
+    /* ============================================================
+      صندوق توصيات الذكاء الاصطناعي
+    ============================================================ */
+    .ai-box {
+      margin-top:30px;
+      background:linear-gradient(180deg,#ffffff,#f7f9fc);
+      border:1px solid rgba(195, 199, 115, 0.4);
+      padding:20px;
+      border-radius:18px;
+      box-shadow:0 6px 20px rgba(10, 29, 65, 0.08);
+    }
+    .ai-title {font-size:17px; font-weight:700; margin-bottom:8px; color:#A8AD63;}
+    .ai-text {font-size:15px; line-height:1.8; color:#15294E;}
+
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="header-title">شبكة النقل بين المستشفيات</div>
+  <div class="header-actions">
+    <a href="main_dashboard.html" class="nav-link">الرئيسية</a>
+    <a href="control_panel.html" class="nav-link">لوحة التحكم</a>
+    <a href="smart_beds.html" class="nav-link">خريطة الأسرة</a>
+    <a href="transfer_requests.html" class="nav-link">إدارة الطلبات</a>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- ============================================================
+      بطاقات المستشفيات الثلاثة
+  ============================================================ -->
+  <div id="hospitalsGrid" class="hospital-grid"></div>
+
+  <!-- ============================================================
+      مربع المقارنة
+  ============================================================ -->
+  <div class="compare-box" id="compareBox" style="display:none;">
+    <div class="compare-title">مقارنة المستشفى الحالي مع المستشفى المستقبل المختار</div>
+    <div class="compare-grid">
+
+      <div class="compare-col">
+        <div class="compare-label">المستشفى الحالي</div>
+        <div class="compare-value" id="sourceName">—</div>
+
+        <div class="compare-label">الضغط</div>
+        <div class="compare-value" id="sourceLoad">—</div>
+
+        <div class="compare-label">نسبة التمريض</div>
+        <div class="compare-value" id="sourceRatio">—</div>
+
+        <div class="compare-label">الحالات الحرجة</div>
+        <div class="compare-value" id="sourceCritical">—</div>
+      </div>
+
+      <div class="compare-arrow"></div>
+
+      <div class="compare-col">
+        <div class="compare-label">المستشفى المستقبل</div>
+        <div class="compare-value" id="targetName">—</div>
+
+        <div class="compare-label">الضغط</div>
+        <div class="compare-value" id="targetLoad">—</div>
+
+        <div class="compare-label">نسبة التمريض</div>
+        <div class="compare-value" id="targetRatio">—</div>
+
+        <div class="compare-label">الحالات الحرجة</div>
+        <div class="compare-value" id="targetCritical">—</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================
+      صندوق الذكاء الاصطناعي
+  ============================================================ -->
+  <div id="aiBox" class="ai-box" style="display:none;">
+    <div class="ai-title">توصية الذكاء الاصطناعي</div>
+    <div class="ai-text" id="aiText"></div>
+  </div>
+
+</div>
+
+<script>
+/* ============================================================
+  بيانات المستشفيات (نفس بيانات لوحة التحكم)
+============================================================ */
+const hospitals = [
+  {
+    id: 'KAH',
+    name: 'مستشفى الملك عبدالعزيز',
+    load: 82,
+    ratio: '1 : 6.5',
+    critical: 18
+  },
+  {
+    id: 'NOOR',
+    name: 'مستشفى النور التخصصي',
+    load: 60,
+    ratio: '1 : 4.8',
+    critical: 12
+  },
+  {
+    id: 'KAMC',
+    name: 'مدينة الملك عبدالله الطبية',
+    load: 45,
+    ratio: '1 : 4.2',
+    critical: 25
+  }
+];
+
+let selectedTarget = null;
+const sourceHospital = hospitals[0]; // المستشفى الحالي
+
+/* ============================================================
+  بناء بطاقات المستشفيات
+============================================================ */
+function buildHospitals() {
+  const grid = document.getElementById("hospitalsGrid");
+  grid.innerHTML = "";
+
+  hospitals.forEach(h => {
+    const card = document.createElement("div");
+    card.className = "hospital-card";
+    card.innerHTML = `
+      <div class="hospital-name">${h.name}</div>
+      <div class="hospital-meta">الضغط: ${h.load}% • نسبة التمريض: ${h.ratio}</div>
+
+      <div class="capacity-bar">
+        <div class="capacity-fill ${h.load < 50 ? 'green' : h.load < 75 ? 'yellow' : 'red'}" 
+             style="width:${h.load}%"></div>
+      </div>
+
+      <div class="hospital-meta">الحالات الحرجة: ${h.critical}</div>
+    `;
+
+    card.onclick = () => {
+      document.querySelectorAll(".hospital-card").forEach(c => c.classList.remove("selected"));
+      card.classList.add("selected");
+      selectedTarget = h;
+      updateCompare();
+    };
+
+    grid.appendChild(card);
+  });
+}
+
+/* ============================================================
+  تحديث المقارنة بين المستشفيات
+============================================================ */
+function updateCompare() {
+  if (!selectedTarget) return;
+
+  document.getElementById("compareBox").style.display = "block";
+
+  document.getElementById("sourceName").textContent = sourceHospital.name;
+  document.getElementById("sourceLoad").textContent = sourceHospital.load + "%";
+  document.getElementById("sourceRatio").textContent = sourceHospital.ratio;
+  document.getElementById("sourceCritical").textContent = sourceHospital.critical;
+
+  document.getElementById("targetName").textContent = selectedTarget.name;
+  document.getElementById("targetLoad").textContent = selectedTarget.load + "%";
+  document.getElementById("targetRatio").textContent = selectedTarget.ratio;
+  document.getElementById("targetCritical").textContent = selectedTarget.critical;
+
+  showAIRecommendation();
+}
+
+/* ============================================================
+  توصية الذكاء الاصطناعي
+============================================================ */
+function showAIRecommendation() {
+  const ai = document.getElementById("aiBox");
+  ai.style.display = "block";
+
+  if (selectedTarget.load < sourceHospital.load) {
+    document.getElementById("aiText").textContent =
+      `يوصى بالنقل إلى ${selectedTarget.name} لأن مستوى الضغط فيه أقل (${selectedTarget.load}%) من المستشفى الحالي (${sourceHospital.load}%). 
+       كما أن نسبة التمريض ${selectedTarget.ratio} أفضل من ${sourceHospital.ratio}.
+       
+       ملاحظة: للحصول على معلومات تفصيلية عن الأسرة المتاحة، يرجى إرسال طلب تحويل من خلال صفحة إدارة الطلبات.`;
+  } else {
+    document.getElementById("aiText").textContent =
+      `النقل إلى ${selectedTarget.name} ممكن، لكنه ليس الخيار المثالي بسبب ارتفاع الضغط (${selectedTarget.load}%) مقارنة بالمستشفى الحالي.
+      
+      ملاحظة: للحصول على معلومات تفصيلية عن الأسرة المتاحة، يرجى إرسال طلب تحويل من خلال صفحة إدارة الطلبات.`;
+  }
+}
+
+/* ============================================================
+  تشغيل الصفحة
+============================================================ */
+buildHospitals();
+</script>
+
+</body>
+</html>

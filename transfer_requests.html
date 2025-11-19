@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>إدارة طلبات التحويل بين المستشفيات</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {margin:0; padding:0; box-sizing:border-box;}
+    body {
+      font-family: "Tajawal", sans-serif;
+      background: #F7F9FD;
+      color:#1A3A7A;
+      padding-bottom:50px;
+    }
+    header {
+      background: #0A1D41;
+      color:#FFFFFF;
+      letter-spacing: 0.5px;
+      padding:20px 30px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      box-shadow:0 4px 18px rgba(0,0,0,0.15);
+    }
+    .header-title {font-size:20px; font-weight:700;}
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .nav-link {
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 9px 18px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      text-decoration: none;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .nav-link:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+    .container {max-width:1400px; margin:40px auto; padding:0 20px;}
+
+    /* Cards */
+    .card {
+      background:#fff;
+      border-radius:20px;
+      padding:24px;
+      border:1px solid rgba(10,29,65,0.08);
+      box-shadow:0 8px 24px rgba(10,29,65,0.08);
+      margin-bottom:30px;
+    }
+    .incoming-card {border-top:5px solid #0A1D41;}
+    .outgoing-card {border-top:5px solid #A8AD63;}
+    .card-title {
+      font-size:20px;
+      font-weight:700;
+      margin-bottom:20px;
+      color:#A8AD63;
+    }
+
+    /* Request Cards */
+    .request-card {
+      background:linear-gradient(180deg, #ffffff, #f7f9fc);
+      padding:20px;
+      border-radius:18px;
+      border:1px solid rgba(195, 199, 115, 0.4);
+      box-shadow:0 6px 20px rgba(10, 29, 65, 0.08);
+      margin-bottom:16px;
+      transition:.25s;
+    }
+    .request-card:hover {
+      transform:translateY(-2px);
+      box-shadow:0 12px 28px rgba(10,29,65,0.12);
+      border-color:#8A8F40;
+    }
+
+    .request-header {
+      display:flex;
+      justify-content:space-between;
+      align-items:start;
+      margin-bottom:12px;
+    }
+
+    .request-title {
+      font-size:17px;
+      font-weight:700;
+      margin-bottom:4px;
+      color:#0A1D41;
+    }
+
+    .request-meta {
+      font-size:13px;
+      color:#15294E;
+    }
+
+    .severity-badge {
+      padding:6px 12px;
+      border-radius:8px;
+      font-size:12px;
+      font-weight:600;
+    }
+
+    .severity-high {
+      background:rgba(231,76,60,0.15);
+      color:#e74c3c;
+    }
+
+    .severity-medium {
+      background:rgba(241,196,15,0.15);
+      color:#f39c12;
+    }
+
+    .severity-low {
+      background:rgba(46,204,113,0.15);
+      color:#27ae60;
+    }
+
+    .ai-recommendation {
+      background:linear-gradient(180deg,#ffffff,#f7f9fc);
+      padding:12px;
+      border-radius:12px;
+      margin-bottom:12px;
+      border:1px solid rgba(195, 199, 115, 0.4);
+    }
+
+    .ai-recommendation-title {
+      font-size:13px;
+      font-weight:600;
+      color:#1A3A7A;
+      margin-bottom:6px;
+    }
+
+    .ai-recommendation-text {
+      font-size:12px;
+      color:#1A3A7A;
+      line-height:1.6;
+    }
+
+    .request-actions {
+      display:flex;
+      gap:8px;
+    }
+
+    .btn-action {
+      flex:1;
+      padding:10px 14px;
+      border:none;
+      border-radius:12px;
+      font-size:13px;
+      font-weight:600;
+      cursor:pointer;
+      transition:.2s;
+    }
+
+    .btn-accept {
+      background:linear-gradient(135deg,#27ae60,#2ecc71);
+      color:#fff;
+    }
+
+    .btn-accept:hover:not(:disabled) {
+      transform:translateY(-2px);
+      box-shadow:0 4px 12px rgba(46,204,113,0.3);
+    }
+
+    .btn-reject {
+      background:linear-gradient(135deg,#e74c3c,#c0392b);
+      color:#fff;
+    }
+
+    .btn-reject:hover {
+      transform:translateY(-2px);
+      box-shadow:0 4px 12px rgba(231,76,60,0.3);
+    }
+
+    .btn-details {
+      background:#1A3A7A;
+      color:#fff;
+    }
+
+    .btn-details:hover {
+      transform:translateY(-2px);
+    }
+
+    .btn-action:disabled {
+      opacity:0.5;
+      cursor:not-allowed;
+    }
+
+    .empty-state {
+      text-align:center;
+      padding:40px 20px;
+      color:#777;
+    }
+
+    .empty-state-icon {
+      font-size:48px;
+      margin-bottom:12px;
+      opacity:0.5;
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="header-title">إدارة طلبات التحويل بين المستشفيات</div>
+  <div class="header-actions">
+    <a href="main_dashboard.html" class="nav-link">الرئيسية</a>
+    <a href="smart_beds.html" class="nav-link">خريطة الأسرة</a>
+    <a href="control_panel.html" class="nav-link">لوحة التحكم</a>
+    <a href="network_transfer.html" class="nav-link">شبكة النقل</a>
+  </div>
+</header>
+
+<div class="container">
+  <!-- طلبات التحويل الواردة -->
+  <div class="card incoming-card">
+    <div class="card-title">طلبات التحويل الواردة من مستشفيات أخرى</div>
+    <div id="incomingRequestsList"></div>
+  </div>
+
+  <!-- طلبات التحويل الصادرة -->
+  <div class="card outgoing-card">
+    <div class="card-title">طلبات التحويل الصادرة</div>
+    <div id="outgoingRequestsList"></div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+  طلبات التحويل الواردة
+============================================================ */
+const incomingRequests = [
+  {
+    id: "REQ001",
+    fromHospital: "مستشفى النور التخصصي",
+    patientName: "أحمد محمد",
+    severity: "HIGH",
+    reason: "فشل تنفسي يحتاج سرير عزل",
+    timeRemaining: 15,
+    needsIsolation: true
+  },
+  {
+    id: "REQ002",
+    fromHospital: "مدينة الملك عبدالله الطبية",
+    patientName: "فاطمة علي",
+    severity: "MEDIUM",
+    reason: "حاجة لرعاية متخصصة في القلب",
+    timeRemaining: 30,
+    needsIsolation: false
+  }
+];
+
+/* ============================================================
+  طلبات التحويل الصادرة
+============================================================ */
+const outgoingRequests = [
+  {
+    id: "OUT001",
+    toHospital: "مستشفى النور التخصصي",
+    patientName: "سعاد أحمد",
+    severity: "MEDIUM",
+    reason: "حاجة لرعاية متخصصة",
+    status: "pending",
+    sentAt: "منذ 10 دقائق"
+  },
+  {
+    id: "OUT002",
+    toHospital: "مدينة الملك عبدالله الطبية",
+    patientName: "وفاء العتيبي",
+    severity: "HIGH",
+    reason: "حالة حرجة تحتاج عناية مكثفة",
+    status: "accepted",
+    sentAt: "منذ 25 دقيقة"
+  }
+];
+
+function buildIncomingRequests() {
+  const container = document.getElementById("incomingRequestsList");
+  container.innerHTML = "";
+
+  if (incomingRequests.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state-icon">📭</div>
+        <div>لا توجد طلبات واردة حالياً</div>
+      </div>
+    `;
+    return;
+  }
+
+  incomingRequests.forEach(req => {
+    const card = document.createElement("div");
+    card.className = "request-card";
+    
+    const aiDecision = checkAIAcceptance(req);
+    
+    card.innerHTML = `
+      <div class="request-header">
+        <div>
+          <div class="request-title">طلب من: ${req.fromHospital}</div>
+          <div class="request-meta">المريض: ${req.patientName}</div>
+        </div>
+        <div class="severity-badge severity-${req.severity.toLowerCase()}">
+          ${req.severity === 'HIGH' ? 'حرجة' : req.severity === 'MEDIUM' ? 'متوسطة' : 'منخفضة'}
+        </div>
+      </div>
+      <div style="font-size:13px; color:#555; margin-bottom:12px;">
+        <strong>سبب التحويل:</strong> ${req.reason}
+      </div>
+      <div style="font-size:12px; color:#999; margin-bottom:12px;">
+        الوقت المتبقي للرد: <strong>${req.timeRemaining} دقيقة</strong>
+      </div>
+      <div class="ai-recommendation">
+        <div class="ai-recommendation-title">توصية الذكاء الاصطناعي:</div>
+        <div class="ai-recommendation-text">
+          ${aiDecision.message}
+        </div>
+      </div>
+      <div class="request-actions">
+        <button class="btn-action btn-accept" onclick="acceptRequest('${req.id}')" 
+                ${!aiDecision.canAccept ? 'disabled' : ''}>
+          قبول
+        </button>
+        <button class="btn-action btn-reject" onclick="rejectRequest('${req.id}')">
+          رفض
+        </button>
+        <button class="btn-action btn-details" onclick="viewPatientDetails('${req.id}')">
+          التفاصيل
+        </button>
+      </div>
+    `;
+    
+    container.appendChild(card);
+  });
+}
+
+function buildOutgoingRequests() {
+  const container = document.getElementById("outgoingRequestsList");
+  container.innerHTML = "";
+
+  if (outgoingRequests.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state-icon">📤</div>
+        <div>لا توجد طلبات صادرة حالياً</div>
+      </div>
+    `;
+    return;
+  }
+
+  outgoingRequests.forEach(req => {
+    const card = document.createElement("div");
+    card.className = "request-card";
+    
+    const statusBadge = req.status === "accepted" 
+      ? '<span style="color:#27ae60; font-weight:600;">✓ مقبول</span>'
+      : req.status === "rejected"
+      ? '<span style="color:#e74c3c; font-weight:600;">✗ مرفوض</span>'
+      : '<span style="color:#f39c12; font-weight:600;">⏳ قيد الانتظار</span>';
+    
+    card.innerHTML = `
+      <div class="request-header">
+        <div>
+          <div class="request-title">طلب إلى: ${req.toHospital}</div>
+          <div class="request-meta">المريض: ${req.patientName} • ${req.sentAt}</div>
+        </div>
+        <div class="severity-badge severity-${req.severity.toLowerCase()}">
+          ${req.severity === 'HIGH' ? 'حرجة' : req.severity === 'MEDIUM' ? 'متوسطة' : 'منخفضة'}
+        </div>
+      </div>
+      <div style="font-size:13px; color:#555; margin-bottom:12px;">
+        <strong>سبب التحويل:</strong> ${req.reason}
+      </div>
+      <div style="font-size:13px; color:#0a56b3; margin-bottom:12px; font-weight:600;">
+        الحالة: ${statusBadge}
+      </div>
+      <div class="request-actions">
+        <button class="btn-action btn-details" onclick="viewOutgoingDetails('${req.id}')" style="flex:1;">
+          عرض التفاصيل
+        </button>
+        ${req.status === "pending" ? `
+          <button class="btn-action btn-reject" onclick="cancelRequest('${req.id}')" style="flex:1;">
+            إلغاء الطلب
+          </button>
+        ` : ''}
+      </div>
+    `;
+    
+    container.appendChild(card);
+  });
+}
+
+function checkAIAcceptance(request) {
+  // محاكاة منطق AI للقبول/الرفض
+  const currentLoad = 86; // الضغط الحالي
+  const currentRatio = 6.4; // نسبة التمريض
+  const hasIsolationBed = request.needsIsolation ? true : true; // محاكاة
+  
+  // الشروط الأساسية
+  if (request.severity === "HIGH" || request.severity === "CRITICAL") {
+    return {
+      canAccept: true,
+      message: "✔ يتم قبول الطلب — الحالة حرجة وتتطلب قبول إجباري"
+    };
+  }
+  
+  if (currentLoad > 80) {
+    return {
+      canAccept: false,
+      message: "❌ لا يمكن قبول الطلب — الضغط الحالي مرتفع جداً (" + currentLoad + "%)"
+    };
+  }
+  
+  if (currentRatio >= 7) {
+    return {
+      canAccept: false,
+      message: "❌ لا يمكن قبول الطلب — نسبة التمريض مرتفعة جداً (1:" + currentRatio + ")"
+    };
+  }
+  
+  if (request.needsIsolation && !hasIsolationBed) {
+    return {
+      canAccept: false,
+      message: "❌ لا يمكن قبول الطلب — لا يوجد سرير عزل متاح"
+    };
+  }
+  
+  if (currentLoad <= 70 && currentRatio <= 6) {
+    return {
+      canAccept: true,
+      message: "✔ يتم قبول الطلب — السعة الحالية تسمح بذلك. الجناح 4B لديه سرير مناسب متاح."
+    };
+  }
+  
+  return {
+    canAccept: true,
+    message: "⚠ يمكن قبول الطلب — لكن الضغط متوسط. يُنصح بالمراقبة."
+  };
+}
+
+function acceptRequest(requestId) {
+  const req = incomingRequests.find(r => r.id === requestId);
+  if (req) {
+    alert(`تم قبول طلب التحويل من ${req.fromHospital}\nالمريض: ${req.patientName}`);
+    // إزالة الطلب من القائمة
+    const index = incomingRequests.findIndex(r => r.id === requestId);
+    if (index > -1) {
+      incomingRequests.splice(index, 1);
+      buildIncomingRequests();
+    }
+  }
+}
+
+function rejectRequest(requestId) {
+  const req = incomingRequests.find(r => r.id === requestId);
+  if (req) {
+    if (confirm(`هل أنت متأكد من رفض طلب التحويل من ${req.fromHospital}؟`)) {
+      alert(`تم رفض طلب التحويل`);
+      const index = incomingRequests.findIndex(r => r.id === requestId);
+      if (index > -1) {
+        incomingRequests.splice(index, 1);
+        buildIncomingRequests();
+      }
+    }
+  }
+}
+
+function viewPatientDetails(requestId) {
+  const req = incomingRequests.find(r => r.id === requestId);
+  if (req) {
+    alert(`تفاصيل المريض:\n\nالاسم: ${req.patientName}\nالمستشفى المرسل: ${req.fromHospital}\nدرجة الحالة: ${req.severity}\nسبب التحويل: ${req.reason}\n\n(سيتم فتح ملف الحالة الكامل)`);
+  }
+}
+
+function viewOutgoingDetails(requestId) {
+  const req = outgoingRequests.find(r => r.id === requestId);
+  if (req) {
+    alert(`تفاصيل الطلب الصادر:\n\nالمستشفى المستقبل: ${req.toHospital}\nالمريض: ${req.patientName}\nدرجة الحالة: ${req.severity}\nسبب التحويل: ${req.reason}\nالحالة: ${req.status === 'accepted' ? 'مقبول' : req.status === 'rejected' ? 'مرفوض' : 'قيد الانتظار'}\n\n(سيتم فتح تفاصيل الطلب الكاملة)`);
+  }
+}
+
+function cancelRequest(requestId) {
+  const req = outgoingRequests.find(r => r.id === requestId);
+  if (req) {
+    if (confirm(`هل أنت متأكد من إلغاء طلب التحويل إلى ${req.toHospital}؟`)) {
+      alert(`تم إلغاء طلب التحويل`);
+      const index = outgoingRequests.findIndex(r => r.id === requestId);
+      if (index > -1) {
+        outgoingRequests.splice(index, 1);
+        buildOutgoingRequests();
+      }
+    }
+  }
+}
+
+/* ============================================================
+  تشغيل الصفحة
+============================================================ */
+buildIncomingRequests();
+buildOutgoingRequests();
+</script>
+
+</body>
+</html>
+
