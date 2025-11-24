@@ -196,87 +196,7 @@
       transform: translateY(0);
     }
 
-    .tag-season {
-      font-size: 12px;
-      font-weight: 600;
-      padding: 8px 14px;
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      background: linear-gradient(135deg, rgba(3, 169, 244, 0.25), rgba(3, 169, 244, 0.15));
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
 
-    .season-toggle {
-      border-radius: 14px;
-      border: 2px solid rgba(255, 255, 255, 0.4);
-      padding: 9px 18px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      background: rgba(255, 255, 255, 0.15);
-      color: #fff;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      text-decoration: none;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-    }
-
-    .season-toggle.active {
-      background: linear-gradient(135deg, #ffb300, #ffa000);
-      color: #000;
-      border-color: #ffb300;
-      box-shadow: 0 4px 16px rgba(255, 179, 0, 0.4);
-      font-weight: 700;
-    }
-
-    .season-toggle:hover {
-      background: rgba(255, 255, 255, 0.28);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
-      border-color: rgba(255, 255, 255, 0.5);
-    }
-
-    .season-toggle.active:hover {
-      background: linear-gradient(135deg, #ffc107, #ffb300);
-      box-shadow: 0 6px 20px rgba(255, 179, 0, 0.5);
-    }
-
-    .user-chip {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 14px;
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      font-size: 13px;
-      font-weight: 500;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease;
-    }
-
-    .user-chip:hover {
-      background: rgba(255, 255, 255, 0.18);
-      transform: translateY(-1px);
-    }
-
-    .user-avatar {
-      width: 28px;
-      height: 28px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
       font-size: 12px;
       color: var(--primary-dark);
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
@@ -1257,7 +1177,7 @@
 <body>
 <div class="mobile-header">
   <span class="mobile-menu-btn" onclick="openMenu()">☰</span>
-  <span>Smart Bed System</span>
+  <span>Masar</span>
 </div>
 
 <div id="mobileMenu" class="mobile-menu">
@@ -1265,7 +1185,6 @@
   <a href="main_dashboard.html">الرئيسية</a>
   <a href="smart_beds.html">خريطة الأسرة</a>
   <a href="control_panel.html">لوحة التحكم</a>
-  <a href="network_transfer.html">شبكة المستشفيات</a>
   <a href="transfer_requests.html">إدارة الطلبات</a>
 </div>
 
@@ -1275,8 +1194,8 @@
     <div class="header-left">
       <div class="logo-circle" aria-hidden="true"></div>
       <div class="header-title">
-        <div class="header-title-main">خريطة الأسرة التفاعلية – Smart Bed Map</div>
-        <div class="header-title-sub">نظام إدارة الأسرة بمستشفى الملك عبدالعزيز</div>
+        <div class="header-title-main">Masar</div>
+        <div class="header-title-sub">خريطة الأسرة التفاعلية</div>
       </div>
     </div>
     <div class="header-actions">
@@ -1286,23 +1205,9 @@
       <a href="control_panel.html" class="nav-link">
          لوحة التحكم
       </a>
-      <a href="network_transfer.html" class="nav-link">
-          شبكة المستشفيات
-      </a>
       <a href="transfer_requests.html" class="nav-link">
           إدارة الطلبات
       </a>
-      <span class="tag-season">
-         وضع المواسم
-        <span id="seasonLabel">عادي</span>
-      </span>
-      <button id="seasonToggle" class="season-toggle" type="button">
-         تفعيل وضع الحج / رمضان
-      </button>
-      <div class="user-chip">
-        <div class="user-avatar">HN</div>
-        <span>مرحباً، Head Nurse</span>
-      </div>
     </div>
   </header>
 
@@ -1450,7 +1355,7 @@
           </button>
 
           <div class="chips-row">
-            <span class="chip-soft">نسبة تمريض/مرضى: <span id="nurseRatio">1 : 5</span></span>
+            <span class="chip-soft">نسبة تمريض/مرضى: <span id="nurseRatio">1 : 5.5</span></span>
             <span class="chip-soft">ضغط الجناح: <span id="wardLoad">مرتفع</span></span>
             <span class="chip-soft">وضع المواسم: <span id="seasonChip">عادي</span></span>
           </div>
@@ -1462,7 +1367,7 @@
     <div class="card ai-analysis-card">
       <div class="ai-box" id="aiBox">
         <div class="ai-empty-state">
-          <div class="ai-empty-state-icon">🤖</div>
+          <div class="ai-empty-state-icon"></div>
           <div class="ai-empty-state-text">اختر سريراً لعرض تحليل الذكاء الاصطناعي</div>
         </div>
       </div>
@@ -1608,8 +1513,6 @@
   const nurseRatio = document.getElementById("nurseRatio");
   const wardLoad = document.getElementById("wardLoad");
   const seasonChip = document.getElementById("seasonChip");
-  const seasonToggle = document.getElementById("seasonToggle");
-  const seasonLabel = document.getElementById("seasonLabel");
 
   function statusToArabic(status) {
     switch (status) {
@@ -1867,7 +1770,7 @@
       card.innerHTML = `
         <div class="room-title">غرفة ${r.room}</div>
         <div class="room-bed">
-          <span>🛏 سرير ${r.bed}</span>
+          <span>سرير ${r.bed}</span>
           <span>${statusToArabic(r.bedStatus)}</span>
         </div>
         <span class="room-status room-status-${r.status}">
@@ -1936,7 +1839,7 @@
           wardPressure: "مرتفع",
           equipment: "يحتاج أجهزة متخصصة",
           bedType: "سرير عزل/عناية",
-          nurseRatio: "مرتفعة (1:7)",
+          nurseRatio: "مرتفعة (1:6.5)",
           riskLevel: "عالي"
         };
         aiData.recommendation = "يوصى بمراجعة أولوية السرير خلال 15 دقيقة، مع تقييم إمكانية نقل حالة مستقرة من نفس الجناح لفتح سرير احتياطي لاستقبال حالة حرجة جديدة.";
@@ -1949,13 +1852,13 @@
           "المريضة في مرحلة التعافي وتحتاج رعاية أقل كثافة",
           "يمكن نقلها إلى جناح أقل ضغطاً",
           "لتحرير سرير للحالات الحرجة",
-          "الجناح الحالي متوسط الضغط (1:6)"
+          "الجناح الحالي متوسط الضغط (1:5.5)"
         ];
         aiData.indicators = {
           wardPressure: "متوسط",
           equipment: "لا يحتاج",
           bedType: "سرير عادي",
-          nurseRatio: "متوسطة (1:6)",
+          nurseRatio: "متوسطة (1:5.5)",
           riskLevel: "متوسط"
         };
         aiData.recommendation = "يمكن التخطيط لتحويل المريضة إلى جناح أقل ضغطاً خلال الساعتين القادمتين، لخفض نسبة الحمل التمريضي في هذا الجناح.";
@@ -1974,7 +1877,7 @@
           wardPressure: "منخفض",
           equipment: "لا يحتاج",
           bedType: "سرير عادي",
-          nurseRatio: "منخفضة (1:5)",
+          nurseRatio: "منخفضة (1:4.5)",
           riskLevel: "منخفض"
         };
         aiData.recommendation = "لا حاجة لتحويل فوري. يمكن استخدام هذا السرير ضمن خطة إعادة توزيع الحالات إذا زاد الضغط في قسم الطوارئ.";
@@ -2020,35 +1923,35 @@
 
     // بناء HTML
     const aiHTML = `
-      <div class="ai-title">🤖 مساعد التحويل الذكي</div>
+      <div class="ai-title">مساعد التحويل الذكي</div>
 
       <!-- AI Score -->
       <div class="ai-section">
-        <div class="ai-section-title">🔵 تصنيف الحالة:</div>
+        <div class="ai-section-title">تصنيف الحالة:</div>
         <span class="ai-score ${aiData.scoreClass}">${aiData.scoreText}</span>
       </div>
 
       <!-- Reasons -->
       <div class="ai-section ai-reasons">
-        <div class="ai-section-title">💡 أسباب التحليل:</div>
+        <div class="ai-section-title">أسباب التحليل:</div>
         <ul>
-          ${aiData.reasons.map(reason => `<li>✔ ${reason}</li>`).join('')}
+          ${aiData.reasons.map(reason => `<li>${reason}</li>`).join('')}
         </ul>
       </div>
 
       <!-- Indicators -->
       <div class="ai-section">
-        <div class="ai-section-title">📊 المؤشرات:</div>
-        <div class="ai-badge">🔥 ضغط الجناح: ${aiData.indicators.wardPressure}</div>
-        <div class="ai-badge">🧪 متطلبات الأجهزة: ${aiData.indicators.equipment}</div>
-        <div class="ai-badge">🛏 نوع السرير المناسب: ${aiData.indicators.bedType}</div>
-        <div class="ai-badge">🧑‍⚕ نسبة التمريض: ${aiData.indicators.nurseRatio}</div>
-        <div class="ai-badge">🚨 خطر التدهور: ${aiData.indicators.riskLevel}</div>
+        <div class="ai-section-title">المؤشرات:</div>
+        <div class="ai-badge">ضغط الجناح: ${aiData.indicators.wardPressure}</div>
+        <div class="ai-badge">متطلبات الأجهزة: ${aiData.indicators.equipment}</div>
+        <div class="ai-badge">نوع السرير المناسب: ${aiData.indicators.bedType}</div>
+        <div class="ai-badge">نسبة التمريض: ${aiData.indicators.nurseRatio}</div>
+        <div class="ai-badge">خطر التدهور: ${aiData.indicators.riskLevel}</div>
       </div>
 
       <!-- Final Recommendation -->
       <div class="ai-section">
-        <div class="ai-section-title">✅ الخلاصة:</div>
+        <div class="ai-section-title">الخلاصة:</div>
         <div class="ai-recommend-text">
           ${aiData.recommendation}
         </div>
@@ -2065,24 +1968,26 @@
   function initSeasonToggle() {
     const seasonBanner = document.getElementById("seasonBanner");
     
-    seasonToggle.addEventListener("click", () => {
-      seasonMode = !seasonMode;
-      seasonToggle.classList.toggle("active", seasonMode);
-      seasonLabel.textContent = seasonMode ? "حج / رمضان" : "عادي";
-      seasonChip.textContent = seasonMode ? "حج / رمضان" : "عادي";
-
-      // إظهار/إخفاء Banner
+    // قراءة الحالة من localStorage
+    function loadSeasonMode() {
+      const saved = localStorage.getItem('seasonMode');
+      seasonMode = saved === 'true';
+      
+      if (seasonChip) {
+        seasonChip.textContent = seasonMode ? "حج / رمضان" : "عادي";
+      }
+      
       if (seasonBanner) {
         seasonBanner.style.display = seasonMode ? "block" : "none";
       }
-
+      
       if (seasonMode) {
-        nurseRatio.textContent = "1 : 7";
+        if (nurseRatio) nurseRatio.textContent = "1 : 6.5";
       } else {
-        nurseRatio.textContent = "1 : 5";
+        if (nurseRatio) nurseRatio.textContent = "1 : 5.5";
       }
-
-      // إعادة بناء الإحصائيات والأسرة لتطبيق التغييرات
+      
+      // إعادة بناء الإحصائيات والأسرة
       calculateQuickStats();
       buildBedGrid();
       
@@ -2093,7 +1998,26 @@
           buildAIAnalysis(bed);
         }
       }
+    }
+    
+    // تحميل الحالة عند تحميل الصفحة
+    loadSeasonMode();
+    
+    // الاستماع لتغييرات localStorage من الصفحات الأخرى
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'seasonMode') {
+        loadSeasonMode();
+      }
     });
+    
+    // فحص التغييرات كل ثانية (للاستخدام في نفس الصفحة)
+    setInterval(() => {
+      const saved = localStorage.getItem('seasonMode');
+      const currentMode = saved === 'true';
+      if (currentMode !== seasonMode) {
+        loadSeasonMode();
+      }
+    }, 1000);
   }
 
   function initTransferButton() {
@@ -2162,7 +2086,7 @@
         if (hospital.hasCapacity) {
           if (hospital.waitTime === 0) {
             aiStatus.className = "modal-ai-status success";
-            aiStatus.innerHTML = "<span>✔ يمكن إرسال الطلب — يوجد احتمال قبول</span>";
+            aiStatus.innerHTML = "<span>يمكن إرسال الطلب — يوجد احتمال قبول</span>";
             aiResult.textContent = "التحليل يشير إلى أن المستشفى لديه سعة مناسبة لاستقبال الحالة.";
             submitBtn.disabled = false;
           } else {
@@ -2173,7 +2097,7 @@
           }
         } else {
           aiStatus.className = "modal-ai-status error";
-          aiStatus.innerHTML = "<span>❌ التحويل غير ممكن — لا توجد سعة مناسبة</span>";
+          aiStatus.innerHTML = "<span>التحويل غير ممكن — لا توجد سعة مناسبة</span>";
           aiResult.textContent = "المستشفى يعاني من ضغط عالي ولا يمكنه استقبال حالات جديدة في الوقت الحالي.";
           submitBtn.disabled = true;
         }
@@ -2205,10 +2129,10 @@
     التحويل الداخلي بين الأقسام
   ============================================================ */
   const wardsData = {
-    "4B": { name: "الجناح 4B - باطنية نساء", load: 85, ratio: "1:6.5", availableBeds: 3, totalBeds: 20 },
-    "3B": { name: "الجناح 3B - جراحة", load: 72, ratio: "1:5.8", availableBeds: 5, totalBeds: 18 },
-    "2B": { name: "الجناح 2B - عظام", load: 65, ratio: "1:5.2", availableBeds: 7, totalBeds: 20 },
-    "1A": { name: "الجناح 1A - طوارئ", load: 90, ratio: "1:7.2", availableBeds: 2, totalBeds: 20 },
+    "4B": { name: "الجناح 4B - باطنية نساء", load: 88, ratio: "1:6.0", availableBeds: 3, totalBeds: 20 },
+    "3B": { name: "الجناح 3B - جراحة", load: 73, ratio: "1:5.5", availableBeds: 5, totalBeds: 18 },
+    "2B": { name: "الجناح 2B - عظام", load: 65, ratio: "1:5.0", availableBeds: 7, totalBeds: 20 },
+    "1A": { name: "الجناح 1A - طوارئ", load: 90, ratio: "1:6.5", availableBeds: 2, totalBeds: 20 },
     "5C": { name: "الجناح 5C - قلب", load: 58, ratio: "1:4.5", availableBeds: 8, totalBeds: 19 },
     "ICU": { name: "العناية المركزة", load: 78, ratio: "1:2.5", availableBeds: 4, totalBeds: 18 }
   };
@@ -2267,11 +2191,11 @@
         canTransfer = false;
       } else if (target.availableBeds === 0) {
         aiStatus.className = "modal-ai-status error";
-        recommendation = `❌ لا توجد أسرة متاحة في القسم المستقبل (${target.name}).`;
+        recommendation = `لا توجد أسرة متاحة في القسم المستقبل (${target.name}).`;
         canTransfer = false;
       } else if (target.load < source.load && target.availableBeds >= 2) {
         aiStatus.className = "modal-ai-status success";
-        recommendation = `✔ التحويل موصى به. القسم المستقبل (${target.name}) لديه ضغط أقل (${target.load}% مقابل ${source.load}%) وأسرة متاحة (${target.availableBeds} سرير).`;
+        recommendation = `التحويل موصى به. القسم المستقبل (${target.name}) لديه ضغط أقل (${target.load}% مقابل ${source.load}%) وأسرة متاحة (${target.availableBeds} سرير).`;
         canTransfer = true;
       } else if (target.availableBeds >= 1) {
         aiStatus.className = "modal-ai-status warning";

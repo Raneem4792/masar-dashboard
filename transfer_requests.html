@@ -24,7 +24,11 @@
       justify-content:space-between;
       box-shadow:0 4px 18px rgba(0,0,0,0.15);
     }
-    .header-title {font-size:20px; font-weight:700;}
+    .header-title {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
     .header-actions {
       display: flex;
       align-items: center;
@@ -286,14 +290,435 @@
       margin-bottom:12px;
       opacity:0.5;
     }
+
+    /* Verification Section */
+    .verification-section {
+      display: none;
+      margin-top: 16px;
+      padding: 16px;
+      background: rgba(10, 29, 65, 0.05);
+      border-radius: 12px;
+      border: 1px solid rgba(10, 29, 65, 0.15);
+    }
+
+    .verification-section.active {
+      display: block;
+    }
+
+    .verification-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #0A1D41;
+      margin-bottom: 12px;
+    }
+
+    .verification-input-group {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .verification-input {
+      flex: 1;
+      padding: 12px 16px;
+      border: 2px solid rgba(10, 29, 65, 0.2);
+      border-radius: 10px;
+      font-size: 15px;
+      text-align: center;
+      letter-spacing: 3px;
+      font-family: monospace;
+      transition: all 0.3s;
+    }
+
+    .verification-input:focus {
+      outline: none;
+      border-color: #0A1D41;
+      box-shadow: 0 0 0 3px rgba(10, 29, 65, 0.1);
+    }
+
+    .verification-error {
+      color: #e74c3c;
+      font-size: 12px;
+      margin-top: 8px;
+      min-height: 18px;
+    }
+
+    .btn-verify {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+      white-space: nowrap;
+    }
+
+    .btn-verify-confirm {
+      background: linear-gradient(135deg, #27ae60, #2ecc71);
+      color: #fff;
+    }
+
+    .btn-verify-confirm:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
+    }
+
+    .btn-verify-cancel {
+      background: #f0f0f0;
+      color: #666;
+      padding: 12px 16px;
+    }
+
+    .btn-verify-cancel:hover {
+      background: #e0e0e0;
+    }
+
+    /* Action Modals */
+    .action-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .action-modal.active {
+      display: flex;
+    }
+
+    .action-modal-content {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 32px;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+
+    .action-modal-close {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      font-size: 28px;
+      color: #999;
+      cursor: pointer;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: 0.2s;
+    }
+
+    .action-modal-close:hover {
+      background: #f0f0f0;
+      color: #666;
+    }
+
+    .action-modal-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .action-modal-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #0A1D41;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .action-modal-message {
+      font-size: 15px;
+      color: #555;
+      margin-bottom: 24px;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .action-modal-details {
+      background: rgba(10, 29, 65, 0.05);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 24px;
+    }
+
+    .action-modal-detail-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(10, 29, 65, 0.1);
+    }
+
+    .action-modal-detail-row:last-child {
+      border-bottom: none;
+    }
+
+    .action-modal-detail-label {
+      font-weight: 600;
+      color: #1A3A7A;
+      font-size: 14px;
+    }
+
+    .action-modal-detail-value {
+      color: #555;
+      font-size: 14px;
+      text-align: left;
+    }
+
+    .action-modal-buttons {
+      display: flex;
+      gap: 12px;
+    }
+
+    .action-modal-btn {
+      flex: 1;
+      padding: 14px 24px;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .action-modal-btn-primary {
+      background: linear-gradient(135deg, #27ae60, #2ecc71);
+      color: #fff;
+    }
+
+    .action-modal-btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
+    }
+
+    .action-modal-btn-danger {
+      background: linear-gradient(135deg, #e74c3c, #c0392b);
+      color: #fff;
+    }
+
+    .action-modal-btn-danger:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+    }
+
+    .action-modal-btn-secondary {
+      background: #f0f0f0;
+      color: #666;
+    }
+
+    .action-modal-btn-secondary:hover {
+      background: #e0e0e0;
+    }
+
+    /* Page Access Protection */
+    .access-protection {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #0A1D41, #1A3A7A);
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .access-protection.hidden {
+      display: none;
+    }
+
+    .access-content {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 48px 40px;
+      max-width: 450px;
+      width: 90%;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+      text-align: center;
+    }
+
+    .access-lock-icon {
+      font-size: 64px;
+      margin-bottom: 24px;
+      color: #0A1D41;
+    }
+
+    .access-title {
+      font-size: 26px;
+      font-weight: 700;
+      color: #0A1D41;
+      margin-bottom: 12px;
+    }
+
+    .access-subtitle {
+      font-size: 15px;
+      color: #666;
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+
+    .access-input {
+      width: 100%;
+      padding: 16px 20px;
+      border: 2px solid rgba(10, 29, 65, 0.2);
+      border-radius: 14px;
+      font-size: 18px;
+      margin-bottom: 16px;
+      text-align: center;
+      letter-spacing: 4px;
+      font-family: monospace;
+      transition: all 0.3s;
+      box-sizing: border-box;
+    }
+
+    .access-input:focus {
+      outline: none;
+      border-color: #0A1D41;
+      box-shadow: 0 0 0 4px rgba(10, 29, 65, 0.1);
+    }
+
+    .access-error {
+      color: #e74c3c;
+      font-size: 14px;
+      margin-bottom: 20px;
+      min-height: 22px;
+      font-weight: 500;
+    }
+
+    .access-button {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+      background: linear-gradient(135deg, #0A1D41, #1A3A7A);
+      color: #fff;
+    }
+
+    .access-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(10, 29, 65, 0.3);
+    }
+
+    .access-button:active {
+      transform: translateY(0);
+    }
+
+    .access-back-button {
+      width: 100%;
+      padding: 14px;
+      border: 2px solid rgba(10, 29, 65, 0.3);
+      border-radius: 14px;
+      background: #f0f0f0;
+      color: #666;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+      text-decoration: none;
+      display: block;
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    .access-back-button:hover {
+      background: #e0e0e0;
+      border-color: rgba(10, 29, 65, 0.4);
+      transform: translateY(-1px);
+    }
   </style>
 </head>
 
 <body>
 
+<!-- Accept Request Modal -->
+<div id="acceptModal" class="action-modal" onclick="if(event.target === this) closeAcceptModal()">
+  <div class="action-modal-content">
+    <div class="action-modal-close" onclick="closeAcceptModal()">×</div>
+    <div class="action-modal-icon" style="color: #27ae60;">✓</div>
+    <div class="action-modal-title">قبول طلب التحويل</div>
+    <div class="action-modal-message" id="acceptModalMessage"></div>
+    <div class="action-modal-details" id="acceptModalDetails"></div>
+    <div class="action-modal-buttons">
+      <button class="action-modal-btn action-modal-btn-secondary" onclick="closeAcceptModal()">إلغاء</button>
+      <button class="action-modal-btn action-modal-btn-primary" onclick="confirmAccept()">تأكيد القبول</button>
+    </div>
+  </div>
+</div>
+
+<!-- Reject Request Modal -->
+<div id="rejectModal" class="action-modal" onclick="if(event.target === this) closeRejectModal()">
+  <div class="action-modal-content">
+    <div class="action-modal-close" onclick="closeRejectModal()">×</div>
+    <div class="action-modal-icon" style="color: #e74c3c;">✗</div>
+    <div class="action-modal-title">رفض طلب التحويل</div>
+    <div class="action-modal-message" id="rejectModalMessage"></div>
+    <div class="action-modal-details" id="rejectModalDetails"></div>
+    <div class="action-modal-buttons">
+      <button class="action-modal-btn action-modal-btn-secondary" onclick="closeRejectModal()">إلغاء</button>
+      <button class="action-modal-btn action-modal-btn-danger" onclick="confirmReject()">تأكيد الرفض</button>
+    </div>
+  </div>
+</div>
+
+<!-- Patient Details Modal -->
+<div id="detailsModal" class="action-modal" onclick="if(event.target === this) closeDetailsModal()">
+  <div class="action-modal-content">
+    <div class="action-modal-close" onclick="closeDetailsModal()">×</div>
+    <div class="action-modal-icon" style="color: #0A1D41;">ℹ</div>
+    <div class="action-modal-title">تفاصيل الطلب</div>
+    <div class="action-modal-details" id="detailsModalContent"></div>
+    <div class="action-modal-buttons">
+      <button class="action-modal-btn action-modal-btn-primary" onclick="closeDetailsModal()" style="flex: 1;">إغلاق</button>
+    </div>
+  </div>
+</div>
+
+<!-- Cancel Request Modal -->
+<div id="cancelModal" class="action-modal" onclick="if(event.target === this) closeCancelModal()">
+  <div class="action-modal-content">
+    <div class="action-modal-close" onclick="closeCancelModal()">×</div>
+    <div class="action-modal-icon" style="color: #f39c12;">⚠</div>
+    <div class="action-modal-title">إلغاء طلب التحويل</div>
+    <div class="action-modal-message" id="cancelModalMessage"></div>
+    <div class="action-modal-details" id="cancelModalDetails"></div>
+    <div class="action-modal-buttons">
+      <button class="action-modal-btn action-modal-btn-secondary" onclick="closeCancelModal()">إلغاء</button>
+      <button class="action-modal-btn action-modal-btn-danger" onclick="confirmCancel()">تأكيد الإلغاء</button>
+    </div>
+  </div>
+</div>
+
+<!-- Page Access Protection -->
+<div id="accessProtection" class="access-protection">
+  <div class="access-content">
+    <div class="access-lock-icon">🔒</div>
+    <div class="access-title">التحقق من الصلاحية</div>
+    <div class="access-subtitle">هذه الصفحة محمية. يرجى إدخال رمز التحقق للوصول إلى صفحة إدارة طلبات التحويل.</div>
+    <input type="password" id="accessCode" class="access-input" placeholder="أدخل رمز التحقق (6 أرقام)" maxlength="6" autocomplete="off" onkeypress="if(event.key === 'Enter') checkAccess()">
+    <div id="accessError" class="access-error"></div>
+    <button class="access-button" onclick="checkAccess()">دخول</button>
+    <a href="main_dashboard.html" class="access-back-button">رجوع</a>
+  </div>
+</div>
+
 <div class="mobile-header">
   <span class="mobile-menu-btn" onclick="openMenu()">☰</span>
-  <span>Smart Bed System</span>
+  <span>Masar</span>
 </div>
 
 <div id="mobileMenu" class="mobile-menu">
@@ -301,17 +726,18 @@
   <a href="main_dashboard.html">الرئيسية</a>
   <a href="smart_beds.html">خريطة الأسرة</a>
   <a href="control_panel.html">لوحة التحكم</a>
-  <a href="network_transfer.html">شبكة المستشفيات</a>
   <a href="transfer_requests.html">إدارة الطلبات</a>
 </div>
 
 <header>
-  <div class="header-title">إدارة طلبات التحويل بين المستشفيات</div>
+  <div class="header-title">
+    <div style="font-size: 18px; font-weight: 700; margin-bottom: 4px;">Masar</div>
+    <div style="font-size: 16px; opacity: 0.9;">إدارة طلبات التحويل</div>
+  </div>
   <div class="header-actions">
     <a href="main_dashboard.html" class="nav-link">الرئيسية</a>
     <a href="smart_beds.html" class="nav-link">خريطة الأسرة</a>
     <a href="control_panel.html" class="nav-link">لوحة التحكم</a>
-    <a href="network_transfer.html" class="nav-link">شبكة النقل</a>
   </div>
 </header>
 
@@ -328,6 +754,7 @@
     <div id="outgoingRequestsList"></div>
   </div>
 </div>
+
 
 <script>
 /* ============================================================
@@ -385,7 +812,7 @@ function buildIncomingRequests() {
   if (incomingRequests.length === 0) {
     container.innerHTML = `
       <div class="empty-state">
-        <div class="empty-state-icon">📭</div>
+        <div class="empty-state-icon"></div>
         <div>لا توجد طلبات واردة حالياً</div>
       </div>
     `;
@@ -421,16 +848,25 @@ function buildIncomingRequests() {
         </div>
       </div>
       <div class="request-actions">
-        <button class="btn-action btn-accept" onclick="acceptRequest('${req.id}')" 
+        <button class="btn-action btn-accept" onclick="showVerification('${req.id}', 'accept')" 
                 ${!aiDecision.canAccept ? 'disabled' : ''}>
           قبول
         </button>
-        <button class="btn-action btn-reject" onclick="rejectRequest('${req.id}')">
+        <button class="btn-action btn-reject" onclick="showVerification('${req.id}', 'reject')">
           رفض
         </button>
         <button class="btn-action btn-details" onclick="viewPatientDetails('${req.id}')">
           التفاصيل
         </button>
+      </div>
+      <div id="verification-${req.id}" class="verification-section">
+        <div class="verification-title">التحقق من الهوية - يرجى إدخال رمز التحقق</div>
+        <div class="verification-input-group">
+          <input type="password" id="verify-code-${req.id}" class="verification-input" placeholder="رمز التحقق (6 أرقام)" maxlength="6" autocomplete="off" onkeypress="if(event.key === 'Enter') confirmVerification('${req.id}')">
+          <button class="btn-verify btn-verify-confirm" onclick="confirmVerification('${req.id}')">تأكيد</button>
+          <button class="btn-verify btn-verify-cancel" onclick="hideVerification('${req.id}')">إلغاء</button>
+        </div>
+        <div id="verify-error-${req.id}" class="verification-error"></div>
       </div>
     `;
     
@@ -445,7 +881,7 @@ function buildOutgoingRequests() {
   if (outgoingRequests.length === 0) {
     container.innerHTML = `
       <div class="empty-state">
-        <div class="empty-state-icon">📤</div>
+        <div class="empty-state-icon"></div>
         <div>لا توجد طلبات صادرة حالياً</div>
       </div>
     `;
@@ -457,10 +893,10 @@ function buildOutgoingRequests() {
     card.className = "request-card";
     
     const statusBadge = req.status === "accepted" 
-      ? '<span style="color:#27ae60; font-weight:600;">✓ مقبول</span>'
+      ? '<span style="color:#27ae60; font-weight:600;">مقبول</span>'
       : req.status === "rejected"
-      ? '<span style="color:#e74c3c; font-weight:600;">✗ مرفوض</span>'
-      : '<span style="color:#f39c12; font-weight:600;">⏳ قيد الانتظار</span>';
+      ? '<span style="color:#e74c3c; font-weight:600;">مرفوض</span>'
+      : '<span style="color:#f39c12; font-weight:600;">قيد الانتظار</span>';
     
     card.innerHTML = `
       <div class="request-header">
@@ -496,105 +932,380 @@ function buildOutgoingRequests() {
 
 function checkAIAcceptance(request) {
   // محاكاة منطق AI للقبول/الرفض
-  const currentLoad = 86; // الضغط الحالي
-  const currentRatio = 6.4; // نسبة التمريض
+  const currentLoad = 88; // الضغط الحالي
+  const currentRatio = 6.0; // نسبة التمريض
   const hasIsolationBed = request.needsIsolation ? true : true; // محاكاة
   
   // الشروط الأساسية
   if (request.severity === "HIGH" || request.severity === "CRITICAL") {
     return {
       canAccept: true,
-      message: "✔ يتم قبول الطلب — الحالة حرجة وتتطلب قبول إجباري"
+      message: "يتم قبول الطلب — الحالة حرجة وتتطلب قبول إجباري"
     };
   }
   
   if (currentLoad > 80) {
     return {
       canAccept: false,
-      message: "❌ لا يمكن قبول الطلب — الضغط الحالي مرتفع جداً (" + currentLoad + "%)"
+      message: "لا يمكن قبول الطلب — الضغط الحالي مرتفع جداً (" + currentLoad + "%)"
     };
   }
   
-  if (currentRatio >= 7) {
+  if (currentRatio >= 6.5) {
     return {
       canAccept: false,
-      message: "❌ لا يمكن قبول الطلب — نسبة التمريض مرتفعة جداً (1:" + currentRatio + ")"
+      message: "لا يمكن قبول الطلب — نسبة التمريض مرتفعة جداً (1:" + currentRatio + ")"
     };
   }
   
   if (request.needsIsolation && !hasIsolationBed) {
     return {
       canAccept: false,
-      message: "❌ لا يمكن قبول الطلب — لا يوجد سرير عزل متاح"
+      message: "لا يمكن قبول الطلب — لا يوجد سرير عزل متاح"
     };
   }
   
   if (currentLoad <= 70 && currentRatio <= 6) {
     return {
       canAccept: true,
-      message: "✔ يتم قبول الطلب — السعة الحالية تسمح بذلك. الجناح 4B لديه سرير مناسب متاح."
+      message: "يتم قبول الطلب — السعة الحالية تسمح بذلك. الجناح 4B لديه سرير مناسب متاح."
     };
   }
   
   return {
     canAccept: true,
-    message: "⚠ يمكن قبول الطلب — لكن الضغط متوسط. يُنصح بالمراقبة."
+    message: "يمكن قبول الطلب — لكن الضغط متوسط. يُنصح بالمراقبة."
   };
 }
 
-function acceptRequest(requestId) {
-  const req = incomingRequests.find(r => r.id === requestId);
-  if (req) {
-    alert(`تم قبول طلب التحويل من ${req.fromHospital}\nالمريض: ${req.patientName}`);
-    // إزالة الطلب من القائمة
-    const index = incomingRequests.findIndex(r => r.id === requestId);
-    if (index > -1) {
-      incomingRequests.splice(index, 1);
-      buildIncomingRequests();
+// Verification system
+const VERIFICATION_CODE = "123456"; // يمكن تغييره لاحقاً
+let pendingActions = {}; // {requestId: 'accept' or 'reject'}
+
+function showVerification(requestId, action) {
+  // إخفاء جميع أقسام التحقق الأخرى
+  document.querySelectorAll('.verification-section').forEach(section => {
+    section.classList.remove('active');
+  });
+  
+  // إظهار قسم التحقق للطلب المحدد
+  const verificationSection = document.getElementById(`verification-${requestId}`);
+  const input = document.getElementById(`verify-code-${requestId}`);
+  const error = document.getElementById(`verify-error-${requestId}`);
+  
+  if (verificationSection) {
+    pendingActions[requestId] = action;
+    verificationSection.classList.add('active');
+    if (input) {
+      input.value = "";
+      input.focus();
+    }
+    if (error) {
+      error.textContent = "";
     }
   }
 }
 
-function rejectRequest(requestId) {
+function hideVerification(requestId) {
+  const verificationSection = document.getElementById(`verification-${requestId}`);
+  const input = document.getElementById(`verify-code-${requestId}`);
+  const error = document.getElementById(`verify-error-${requestId}`);
+  
+  if (verificationSection) {
+    verificationSection.classList.remove('active');
+    delete pendingActions[requestId];
+  }
+  if (input) input.value = "";
+  if (error) error.textContent = "";
+}
+
+function confirmVerification(requestId) {
+  const input = document.getElementById(`verify-code-${requestId}`);
+  const error = document.getElementById(`verify-error-${requestId}`);
+  const code = input ? input.value.trim() : "";
+  
+  if (!code) {
+    if (error) error.textContent = "يرجى إدخال رمز التحقق";
+    if (input) input.focus();
+    return;
+  }
+  
+  if (code.length < 6) {
+    if (error) error.textContent = "رمز التحقق يجب أن يكون 6 أرقام";
+    if (input) input.focus();
+    return;
+  }
+  
+  if (code !== VERIFICATION_CODE) {
+    if (error) error.textContent = "رمز التحقق غير صحيح. يرجى المحاولة مرة أخرى";
+    if (input) {
+      input.value = "";
+      input.focus();
+    }
+    return;
+  }
+  
+  // التحقق نجح
+  const action = pendingActions[requestId];
+  hideVerification(requestId);
+  
+  // تنفيذ الإجراء المطلوب
+  if (action === "accept") {
+    executeAcceptRequest(requestId);
+  } else if (action === "reject") {
+    executeRejectRequest(requestId);
+  }
+}
+
+let currentRequestId = null;
+
+function executeAcceptRequest(requestId) {
   const req = incomingRequests.find(r => r.id === requestId);
   if (req) {
-    if (confirm(`هل أنت متأكد من رفض طلب التحويل من ${req.fromHospital}؟`)) {
-      alert(`تم رفض طلب التحويل`);
-      const index = incomingRequests.findIndex(r => r.id === requestId);
+    currentRequestId = requestId;
+    const modal = document.getElementById('acceptModal');
+    const message = document.getElementById('acceptModalMessage');
+    const details = document.getElementById('acceptModalDetails');
+    
+    message.textContent = `هل أنت متأكد من قبول طلب التحويل؟`;
+    details.innerHTML = `
+      <div class="action-modal-detail-row">
+        <span class="action-modal-detail-label">المستشفى المرسل:</span>
+        <span class="action-modal-detail-value">${req.fromHospital}</span>
+      </div>
+      <div class="action-modal-detail-row">
+        <span class="action-modal-detail-label">المريض:</span>
+        <span class="action-modal-detail-value">${req.patientName}</span>
+      </div>
+      <div class="action-modal-detail-row">
+        <span class="action-modal-detail-label">درجة الحالة:</span>
+        <span class="action-modal-detail-value">${req.severity === 'HIGH' ? 'حرجة' : req.severity === 'MEDIUM' ? 'متوسطة' : 'منخفضة'}</span>
+      </div>
+      <div class="action-modal-detail-row">
+        <span class="action-modal-detail-label">سبب التحويل:</span>
+        <span class="action-modal-detail-value">${req.reason}</span>
+      </div>
+    `;
+    
+    modal.classList.add('active');
+  }
+}
+
+function confirmAccept() {
+  if (currentRequestId) {
+    const req = incomingRequests.find(r => r.id === currentRequestId);
+    if (req) {
+      const index = incomingRequests.findIndex(r => r.id === currentRequestId);
       if (index > -1) {
         incomingRequests.splice(index, 1);
         buildIncomingRequests();
       }
+      closeAcceptModal();
+      
+      // عرض رسالة نجاح
+      const modal = document.getElementById('acceptModal');
+      const message = document.getElementById('acceptModalMessage');
+      message.textContent = `✓ تم قبول طلب التحويل بنجاح من ${req.fromHospital}`;
+      setTimeout(() => {
+        closeAcceptModal();
+      }, 2000);
     }
   }
+}
+
+function closeAcceptModal() {
+  document.getElementById('acceptModal').classList.remove('active');
+  currentRequestId = null;
+}
+
+function executeRejectRequest(requestId) {
+  const req = incomingRequests.find(r => r.id === requestId);
+  if (req) {
+    currentRequestId = requestId;
+    const modal = document.getElementById('rejectModal');
+    const message = document.getElementById('rejectModalMessage');
+    const details = document.getElementById('rejectModalDetails');
+    
+    message.textContent = `هل أنت متأكد من رفض طلب التحويل؟`;
+    details.innerHTML = `
+      <div class="action-modal-detail-row">
+        <span class="action-modal-detail-label">المستشفى المرسل:</span>
+        <span class="action-modal-detail-value">${req.fromHospital}</span>
+      </div>
+      <div class="action-modal-detail-row">
+        <span class="action-modal-detail-label">المريض:</span>
+        <span class="action-modal-detail-value">${req.patientName}</span>
+      </div>
+      <div class="action-modal-detail-row">
+        <span class="action-modal-detail-label">درجة الحالة:</span>
+        <span class="action-modal-detail-value">${req.severity === 'HIGH' ? 'حرجة' : req.severity === 'MEDIUM' ? 'متوسطة' : 'منخفضة'}</span>
+      </div>
+    `;
+    
+    modal.classList.add('active');
+  }
+}
+
+function confirmReject() {
+  if (currentRequestId) {
+    const req = incomingRequests.find(r => r.id === currentRequestId);
+    if (req) {
+      const index = incomingRequests.findIndex(r => r.id === currentRequestId);
+      if (index > -1) {
+        incomingRequests.splice(index, 1);
+        buildIncomingRequests();
+      }
+      closeRejectModal();
+      
+      // عرض رسالة نجاح
+      const modal = document.getElementById('rejectModal');
+      const message = document.getElementById('rejectModalMessage');
+      message.textContent = `✗ تم رفض طلب التحويل من ${req.fromHospital}`;
+      setTimeout(() => {
+        closeRejectModal();
+      }, 2000);
+    }
+  }
+}
+
+function closeRejectModal() {
+  document.getElementById('rejectModal').classList.remove('active');
+  currentRequestId = null;
 }
 
 function viewPatientDetails(requestId) {
   const req = incomingRequests.find(r => r.id === requestId);
   if (req) {
-    alert(`تفاصيل المريض:\n\nالاسم: ${req.patientName}\nالمستشفى المرسل: ${req.fromHospital}\nدرجة الحالة: ${req.severity}\nسبب التحويل: ${req.reason}\n\n(سيتم فتح ملف الحالة الكامل)`);
+    const modal = document.getElementById('detailsModal');
+    const content = document.getElementById('detailsModalContent');
+    
+    content.innerHTML = `
+      <div class="action-modal-detail-row">
+        <span class="action-modal-detail-label">الاسم:</span>
+        <span class="action-modal-detail-value">${req.patientName}</span>
+      </div>
+      <div class="action-modal-detail-row">
+        <span class="action-modal-detail-label">المستشفى المرسل:</span>
+        <span class="action-modal-detail-value">${req.fromHospital}</span>
+      </div>
+      <div class="action-modal-detail-row">
+        <span class="action-modal-detail-label">درجة الحالة:</span>
+        <span class="action-modal-detail-value">${req.severity === 'HIGH' ? 'حرجة' : req.severity === 'MEDIUM' ? 'متوسطة' : 'منخفضة'}</span>
+      </div>
+      <div class="action-modal-detail-row">
+        <span class="action-modal-detail-label">سبب التحويل:</span>
+        <span class="action-modal-detail-value">${req.reason}</span>
+      </div>
+      <div class="action-modal-detail-row">
+        <span class="action-modal-detail-label">الوقت المتبقي:</span>
+        <span class="action-modal-detail-value">${req.timeRemaining} دقيقة</span>
+      </div>
+      <div class="action-modal-detail-row">
+        <span class="action-modal-detail-label">يحتاج سرير عزل:</span>
+        <span class="action-modal-detail-value">${req.needsIsolation ? 'نعم' : 'لا'}</span>
+      </div>
+    `;
+    
+    modal.classList.add('active');
   }
 }
+
+function closeDetailsModal() {
+  document.getElementById('detailsModal').classList.remove('active');
+}
+
+let currentOutgoingRequestId = null;
 
 function viewOutgoingDetails(requestId) {
   const req = outgoingRequests.find(r => r.id === requestId);
   if (req) {
-    alert(`تفاصيل الطلب الصادر:\n\nالمستشفى المستقبل: ${req.toHospital}\nالمريض: ${req.patientName}\nدرجة الحالة: ${req.severity}\nسبب التحويل: ${req.reason}\nالحالة: ${req.status === 'accepted' ? 'مقبول' : req.status === 'rejected' ? 'مرفوض' : 'قيد الانتظار'}\n\n(سيتم فتح تفاصيل الطلب الكاملة)`);
+    const modal = document.getElementById('detailsModal');
+    const content = document.getElementById('detailsModalContent');
+    
+    content.innerHTML = `
+      <div class="action-modal-detail-row">
+        <span class="action-modal-detail-label">المستشفى المستقبل:</span>
+        <span class="action-modal-detail-value">${req.toHospital}</span>
+      </div>
+      <div class="action-modal-detail-row">
+        <span class="action-modal-detail-label">المريض:</span>
+        <span class="action-modal-detail-value">${req.patientName}</span>
+      </div>
+      <div class="action-modal-detail-row">
+        <span class="action-modal-detail-label">درجة الحالة:</span>
+        <span class="action-modal-detail-value">${req.severity === 'HIGH' ? 'حرجة' : req.severity === 'MEDIUM' ? 'متوسطة' : 'منخفضة'}</span>
+      </div>
+      <div class="action-modal-detail-row">
+        <span class="action-modal-detail-label">سبب التحويل:</span>
+        <span class="action-modal-detail-value">${req.reason}</span>
+      </div>
+      <div class="action-modal-detail-row">
+        <span class="action-modal-detail-label">الحالة:</span>
+        <span class="action-modal-detail-value">${req.status === 'accepted' ? 'مقبول' : req.status === 'rejected' ? 'مرفوض' : 'قيد الانتظار'}</span>
+      </div>
+      <div class="action-modal-detail-row">
+        <span class="action-modal-detail-label">تاريخ الإرسال:</span>
+        <span class="action-modal-detail-value">${req.sentAt}</span>
+      </div>
+    `;
+    
+    modal.classList.add('active');
   }
 }
 
 function cancelRequest(requestId) {
   const req = outgoingRequests.find(r => r.id === requestId);
   if (req) {
-    if (confirm(`هل أنت متأكد من إلغاء طلب التحويل إلى ${req.toHospital}؟`)) {
-      alert(`تم إلغاء طلب التحويل`);
-      const index = outgoingRequests.findIndex(r => r.id === requestId);
+    currentOutgoingRequestId = requestId;
+    const modal = document.getElementById('cancelModal');
+    const message = document.getElementById('cancelModalMessage');
+    const details = document.getElementById('cancelModalDetails');
+    
+    message.textContent = `هل أنت متأكد من إلغاء طلب التحويل؟`;
+    details.innerHTML = `
+      <div class="action-modal-detail-row">
+        <span class="action-modal-detail-label">المستشفى المستقبل:</span>
+        <span class="action-modal-detail-value">${req.toHospital}</span>
+      </div>
+      <div class="action-modal-detail-row">
+        <span class="action-modal-detail-label">المريض:</span>
+        <span class="action-modal-detail-value">${req.patientName}</span>
+      </div>
+      <div class="action-modal-detail-row">
+        <span class="action-modal-detail-label">درجة الحالة:</span>
+        <span class="action-modal-detail-value">${req.severity === 'HIGH' ? 'حرجة' : req.severity === 'MEDIUM' ? 'متوسطة' : 'منخفضة'}</span>
+      </div>
+    `;
+    
+    modal.classList.add('active');
+  }
+}
+
+function confirmCancel() {
+  if (currentOutgoingRequestId) {
+    const req = outgoingRequests.find(r => r.id === currentOutgoingRequestId);
+    if (req) {
+      const index = outgoingRequests.findIndex(r => r.id === currentOutgoingRequestId);
       if (index > -1) {
         outgoingRequests.splice(index, 1);
         buildOutgoingRequests();
       }
+      closeCancelModal();
+      
+      // عرض رسالة نجاح
+      const modal = document.getElementById('cancelModal');
+      const message = document.getElementById('cancelModalMessage');
+      message.textContent = `✓ تم إلغاء طلب التحويل بنجاح`;
+      setTimeout(() => {
+        closeCancelModal();
+      }, 2000);
     }
   }
+}
+
+function closeCancelModal() {
+  document.getElementById('cancelModal').classList.remove('active');
+  currentOutgoingRequestId = null;
 }
 
 /* ============================================================
@@ -605,6 +1316,43 @@ buildOutgoingRequests();
 </script>
 
 <script>
+  // Page Access Protection
+  const ACCESS_CODE = "123456"; // رمز الدخول للصفحة
+  
+  function checkAccess() {
+    const input = document.getElementById('accessCode');
+    const error = document.getElementById('accessError');
+    const code = input.value.trim();
+    
+    if (!code) {
+      error.textContent = "يرجى إدخال رمز التحقق";
+      input.focus();
+      return;
+    }
+    
+    if (code.length < 6) {
+      error.textContent = "رمز التحقق يجب أن يكون 6 أرقام";
+      input.focus();
+      return;
+    }
+    
+    if (code !== ACCESS_CODE) {
+      error.textContent = "رمز التحقق غير صحيح. يرجى المحاولة مرة أخرى";
+      input.value = "";
+      input.focus();
+      return;
+    }
+    
+    // الرمز صحيح - إخفاء صفحة الحماية
+    document.getElementById('accessProtection').classList.add('hidden');
+  }
+  
+  // إظهار صفحة الحماية في كل مرة يتم فتح الصفحة
+  window.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('accessProtection').classList.remove('hidden');
+    document.getElementById('accessCode').focus();
+  });
+
   function openMenu() {
     const menu = document.getElementById('mobileMenu');
     if (menu) {

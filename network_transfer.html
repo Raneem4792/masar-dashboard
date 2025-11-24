@@ -24,7 +24,11 @@
       justify-content:space-between;
       box-shadow:0 4px 18px rgba(0,0,0,0.15);
     }
-    .header-title {font-size:20px; font-weight:700;}
+    .header-title {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
     .header-actions {
       display: flex;
       align-items: center;
@@ -233,7 +237,7 @@
 
 <div class="mobile-header">
   <span class="mobile-menu-btn" onclick="openMenu()">☰</span>
-  <span>Smart Bed System</span>
+  <span>Masar</span>
 </div>
 
 <div id="mobileMenu" class="mobile-menu">
@@ -241,12 +245,14 @@
   <a href="main_dashboard.html">الرئيسية</a>
   <a href="smart_beds.html">خريطة الأسرة</a>
   <a href="control_panel.html">لوحة التحكم</a>
-  <a href="network_transfer.html">شبكة المستشفيات</a>
   <a href="transfer_requests.html">إدارة الطلبات</a>
 </div>
 
 <header>
-  <div class="header-title">شبكة النقل بين المستشفيات</div>
+  <div class="header-title">
+    <div style="font-size: 18px; font-weight: 700; margin-bottom: 4px;">Masar</div>
+    <div style="font-size: 16px; opacity: 0.9;">شبكة النقل بين المستشفيات</div>
+  </div>
   <div class="header-actions">
     <a href="main_dashboard.html" class="nav-link">الرئيسية</a>
     <a href="control_panel.html" class="nav-link">لوحة التحكم</a>
@@ -320,22 +326,22 @@ const hospitals = [
   {
     id: 'KAH',
     name: 'مستشفى الملك عبدالعزيز',
-    load: 82,
-    ratio: '1 : 6.5',
+    load: 88,
+    ratio: '1 : 6.0',
     critical: 18
   },
   {
     id: 'NOOR',
     name: 'مستشفى النور التخصصي',
-    load: 60,
-    ratio: '1 : 4.8',
+    load: 73,
+    ratio: '1 : 4.5',
     critical: 12
   },
   {
     id: 'KAMC',
     name: 'مدينة الملك عبدالله الطبية',
-    load: 45,
-    ratio: '1 : 4.2',
+    load: 73,
+    ratio: '1 : 4.4',
     critical: 25
   }
 ];
